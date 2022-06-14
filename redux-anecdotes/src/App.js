@@ -1,5 +1,9 @@
 import { useSelector, useDispatch } from "react-redux";
-import { incrementVote, createNewAnecdote } from "./reducers/anecdoteReducer";
+import {
+  incrementVote,
+  createNewAnecdote,
+  getOrderedAnecdotes,
+} from "./reducers/anecdoteReducer";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -8,6 +12,7 @@ const App = () => {
   const handleVote = (id) => {
     console.log("vote", id);
     dispatch(incrementVote(id));
+    dispatch(getOrderedAnecdotes(anecdotes));
   };
 
   const handleNewAnecdote = (e) => {

@@ -33,6 +33,12 @@ export const createNewAnecdote = (anecdote) => {
   };
 };
 
+export const getOrderedAnecdotes = (anecdote) => {
+  return {
+    type: "ORDER",
+    data: anecdote,
+  };
+};
 const reducer = (state = initialState, action) => {
   console.log("state now: ", state);
   console.log("action", action);
@@ -52,6 +58,12 @@ const reducer = (state = initialState, action) => {
       const newAnecdote = asObject(action.data);
 
       return [...state, newAnecdote];
+
+    case "ORDER":
+      const stateCopy = [...state];
+      const orderedAnecdotes = stateCopy.sort((a, b) => b.votes - a.votes);
+
+      return orderedAnecdotes;
 
     default:
       return state;
