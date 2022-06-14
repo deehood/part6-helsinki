@@ -33,10 +33,10 @@ export const createNewAnecdote = (anecdote) => {
   };
 };
 
-export const getOrderedAnecdotes = (anecdote) => {
+export const getOrderedAnecdotes = (anecdotes) => {
   return {
     type: "ORDER",
-    data: anecdote,
+    data: anecdotes,
   };
 };
 const reducer = (state = initialState, action) => {
