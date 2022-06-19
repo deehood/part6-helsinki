@@ -6,14 +6,15 @@ import {
 
 const AnecdoteList = () => {
   const dispatch = useDispatch();
-  const anecdotes = useSelector((state) => state);
+  const anecdotes = useSelector((state) => {
+    return state.anecdotes;
+  });
 
   const handleVote = (id) => {
     console.log("vote", id);
     dispatch(incrementVote(id));
     dispatch(getOrderedAnecdotes(anecdotes));
   };
-
   return (
     <>
       {anecdotes.map((anecdote) => (
