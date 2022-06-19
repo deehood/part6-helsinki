@@ -6,9 +6,7 @@ import {
 
 const AnecdoteList = () => {
   const dispatch = useDispatch();
-  const anecdotes = useSelector((state) => {
-    return state.anecdotes;
-  });
+  const anecdotes = useSelector((state) => state.anecdotes);
 
   const handleVote = (id) => {
     console.log("vote", id);
