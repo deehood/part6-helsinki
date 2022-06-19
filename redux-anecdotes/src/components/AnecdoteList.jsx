@@ -3,6 +3,10 @@ import {
   incrementVote,
   getOrderedAnecdotes,
 } from "../reducers/anecdoteReducer";
+import {
+  normalNotification,
+  removeNormalNotification,
+} from "../reducers/notificationReducer";
 
 const AnecdoteList = () => {
   const dispatch = useDispatch();
@@ -12,6 +16,15 @@ const AnecdoteList = () => {
     console.log("vote", id);
     dispatch(incrementVote(id));
     dispatch(getOrderedAnecdotes(anecdotes));
+
+    dispatch(
+      normalNotification(
+        `Voted for -  ${anecdotes.find((x) => x.id === id).content}`
+      )
+    );
+    setTimeout(() => {
+      dispatch(removeNormalNotification(null));
+    }, 5000);
   };
   return (
     <>
