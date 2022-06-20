@@ -15,14 +15,14 @@ const AnecdoteList = () => {
   const dispatch = useDispatch();
 
   const filter = useSelector((state) => state.filter);
-  console.log(filter);
 
   const anecdotes = useSelector((state) => state.anecdotes);
 
   useEffect(() => {
-    anecdoteService
-      .getAll()
-      .then((anecdotes) => dispatch(setAnecdotes(anecdotes)));
+    anecdoteService.getAll().then((anecdotes) => {
+      console.log(anecdotes);
+      dispatch(setAnecdotes(anecdotes));
+    });
   }, [dispatch]);
 
   const handleVote = (id) => {
