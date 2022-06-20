@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createAnecdote } from "../reducers/anecdoteReducer";
 import {
@@ -8,22 +9,13 @@ import anecdoteService from "../services/anecdotes";
 
 const AnecdoteForm = () => {
   const dispatch = useDispatch();
-  const anecdotesObjectList = useSelector((state) => state.anecdotes);
 
   const handleNewAnecdote = async (e) => {
     e.preventDefault();
 
     const anecdote = e.target.inputNewAnecdote.value;
-
-    await dispatch(createAnecdote(anecdote));
-
-    console.log(anecdote);
-    const anecdoteObject = await anecdotesObjectList.find(
-      (x) => x.content === anecdote
-    );
-    console.log(anecdotesObjectList);
-    console.log(anecdoteObject);
-    await anecdoteService.createAnecdote(anecdoteObject);
+    const newAnecdote = await anecdoteService.createAnecdote(anecdote);
+    dispatch(createAnecdote(newAnecdote));
 
     dispatch(normalNotification(`Created -  ${anecdote}`));
     setTimeout(() => {
