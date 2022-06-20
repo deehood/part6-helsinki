@@ -1,12 +1,15 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   incrementVote,
   getOrderedAnecdotes,
+  setAnecdotes,
 } from "../reducers/anecdoteReducer";
 import {
   normalNotification,
   removeNormalNotification,
 } from "../reducers/notificationReducer";
+import anecdoteService from "../services/anecdotes";
 
 const AnecdoteList = () => {
   const dispatch = useDispatch();
@@ -16,11 +19,16 @@ const AnecdoteList = () => {
 
   const anecdotes = useSelector((state) => state.anecdotes);
 
+  useEffect(() => {
+    anecdoteService
+      .getAll()
+      .then((anecdotes) => dispatch(setAnecdotes(anecdotes)));
+  }, [dispatch]);
+
   const handleVote = (id) => {
     console.log("vote", id);
     dispatch(incrementVote(id));
     dispatch(getOrderedAnecdotes(anecdotes));
-
     dispatch(
       normalNotification(
         `Voted for -  ${anecdotes.find((x) => x.id === id).content}`
@@ -30,6 +38,7 @@ const AnecdoteList = () => {
       dispatch(removeNormalNotification(null));
     }, 5000);
   };
+
   return (
     <>
       {anecdotes
