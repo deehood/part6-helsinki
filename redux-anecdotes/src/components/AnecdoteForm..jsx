@@ -18,7 +18,7 @@ const AnecdoteForm = () => {
       dispatch(removeNormalNotification(null));
     }, 5000);
 
-    e.target.inputNewAnecdote.value = "";
+    e.target.inputAnecdote.value = "";
   };
 
   return (

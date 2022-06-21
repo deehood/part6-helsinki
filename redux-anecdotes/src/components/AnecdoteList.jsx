@@ -21,8 +21,8 @@ const AnecdoteList = () => {
   }, [dispatch]);
 
   const handleVote = (id) => {
-    console.log("vote", id);
     dispatch(incrementVote(id));
+
     dispatch(getOrderedAnecdotes(anecdotes));
     dispatch(
       normalNotification(
