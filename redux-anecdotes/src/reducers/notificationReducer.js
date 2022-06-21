@@ -18,6 +18,15 @@ const notificationSlice = createSlice({
   },
 });
 
+export const setNotification = (text, seconds) => {
+  return (dispatch) => {
+    dispatch(normalNotification(text));
+    setTimeout(() => {
+      dispatch(removeNormalNotification(null));
+    }, seconds * 1000);
+  };
+};
+
 export const { normalNotification, removeNormalNotification } =
   notificationSlice.actions;
 
