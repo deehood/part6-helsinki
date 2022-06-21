@@ -22,4 +22,6 @@ const createAnecdote = async (anecdote) => {
   return response.data;
 };
 
-export default { getAll, createAnecdote };
+const anecdoteService = { getAll, createAnecdote };
+
+export default anecdoteService;
