@@ -40,10 +40,18 @@ export const loadInitialAnecdotes = () => {
   };
 };
 
+export const createAnecdote = (anecdoteText) => {
+  return async (dispatch) => {
+    const anecdote = await anecdoteService.createAnecdote(anecdoteText);
+    dispatch(appendAnecdote(anecdote));
+  };
+};
+
 export const {
-  createAnecdote,
+  setAnecdotes,
+  appendAnecdote,
   incrementVote,
   getOrderedAnecdotes,
-  setAnecdotes,
 } = anecdoteSlice.actions;
+
 export default anecdoteSlice.reducer;
