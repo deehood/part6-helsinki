@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { connect } from "react-redux";
 import {
   incrementVote,
   getOrderedAnecdotes,
@@ -7,32 +7,25 @@ import {
 } from "../reducers/anecdoteReducer";
 import { setNotification } from "../reducers/notificationReducer";
 
-const AnecdoteList = () => {
-  const dispatch = useDispatch();
-
-  const anecdotes = useSelector((state) => state.anecdotes);
-  const filter = useSelector((state) => state.filter);
-
+const AnecdoteList = (props) => {
+  const initial = props.loadInitialAnecdotes;
   useEffect(() => {
-    dispatch(loadInitialAnecdotes());
-  }, [dispatch]);
+    initial();
+  }, [initial]);
 
   const handleVote = (id) => {
-    dispatch(incrementVote(id));
-    dispatch(getOrderedAnecdotes(anecdotes));
+    props.incrementVote(id);
 
-    dispatch(
-      setNotification(
-        `you voted - ${anecdotes.find((x) => x.id === id).content}`,
-        2
-      )
+    props.setNotification(
+      `you voted - ${props.anecdotes.find((x) => x.id === id).content}`,
+      2
     );
   };
 
   return (
     <>
-      {anecdotes
-        .filter((anecdote) => anecdote.content.includes(filter))
+      {props.anecdotes
+        .filter((anecdote) => anecdote.content.includes(props.filter))
         .map((anecdote) => (
           <div
             style={{
@@ -53,4 +46,19 @@ const AnecdoteList = () => {
     </>
   );
 };
-export default AnecdoteList;
+
+const mapStateToProps = (state) => {
+  return {
+    anecdotes: state.anecdotes,
+    filter: state.filter,
+  };
+};
+
+const mapDispatchToProps = {
+  loadInitialAnecdotes,
+  incrementVote,
+  getOrderedAnecdotes,
+  setNotification,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AnecdoteList);

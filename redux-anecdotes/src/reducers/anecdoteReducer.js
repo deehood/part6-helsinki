@@ -56,8 +56,17 @@ export const incrementVote = (id) => {
 
     await anecdoteService.setNewVotes(id, oldVotes + 1);
     dispatch(setNewVote(id));
+    dispatch(getOrderedAnecdotes());
   };
 };
+
+// export const setOrderedAnecdotes = (anecdotes) => {
+//   return (dispatch,getState) => {
+//     console.log(anecdotes);
+//     dispatch(getOrderedAnecdotes(anecdotes));
+//     console.log(anecdotes);
+//   };
+// };
 
 export const { setAnecdotes, appendAnecdote, setNewVote, getOrderedAnecdotes } =
   anecdoteSlice.actions;
