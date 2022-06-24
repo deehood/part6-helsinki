@@ -8,7 +8,7 @@ const AnecdoteForm = (props) => {
     const anecdote = e.target.inputAnecdote.value;
 
     props.createAnecdote(anecdote);
-    props.setNotification(`Created - ${anecdote}`, 2);
+    props.setNotification(`Created - ${anecdote}`, 5);
 
     e.target.inputAnecdote.value = "";
   };

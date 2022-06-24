@@ -18,7 +18,7 @@ const AnecdoteList = (props) => {
 
     props.setNotification(
       `you voted - ${props.anecdotes.find((x) => x.id === id).content}`,
-      2
+      5
     );
   };
 
